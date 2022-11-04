@@ -1,17 +1,16 @@
 package com.example.comerciojava.entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "producto_base")
-@NoArgsConstructor
 @AllArgsConstructor
 @Getter
 @Setter
@@ -28,4 +27,11 @@ public class ProductoBase extends Persistente {
 
     @Column(name = "tiempo_fabricacion", columnDefinition = "VARCHAR(100)")
     private String tiempoDeFabricacion;
+
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "gestor_id", referencedColumnName = "id")
+    @JsonBackReference
+    private Gestor gestor;
+
+    public ProductoBase(){}
 }
